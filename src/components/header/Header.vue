@@ -14,10 +14,13 @@ export default {
 }
 </script>
 
-<style scoped>
-    .header{
+<style lang="less" scoped>
+ .header{
         color: red;
     }
 </style>
+
+   
+
 
 
