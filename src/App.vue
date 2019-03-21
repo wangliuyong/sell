@@ -18,13 +18,21 @@
   </div>
 </template>
 
-<script>
+<script type="es6">
   import Header from './components/header/Header.vue'
 
   export default {
     name: 'App',
+    data(){
+      return {
+        seller:{}
+      }
+    },
     components: {
       Header
+    },
+    created() {
+
     }
   }
 </script>

@@ -4,7 +4,8 @@ import Goods from '../pages/goods/Goods.vue'
 import Seller from '../pages/seller/Seller.vue'
 import Comment from '../pages/comment/Comment.vue'
 
-Vue.use(Router)
+Vue.use(Router);
+
 
 export default new Router({
   routes: [
