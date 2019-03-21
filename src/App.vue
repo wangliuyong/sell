@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header/>
+    <Header :seller="seller"/>
     <div class="nav border-1px">
       <div class="nav-item">
         <router-link to="/goods">商品</router-link>
@@ -20,6 +20,7 @@
 
 <script type="es6">
   import Header from './components/header/Header.vue'
+  import {BASE_URL} from './common/js/config'
 
   export default {
     name: 'App',
@@ -32,7 +33,12 @@
       Header
     },
     created() {
-
+      this.$http.get(`${BASE_URL}/seller`).then(res => {
+        console.log(res);
+        this.seller=res.body;
+      }, response => {
+        // error callback
+      });
     }
   }
 </script>
