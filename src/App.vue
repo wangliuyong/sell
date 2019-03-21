@@ -33,9 +33,9 @@
       Header
     },
     created() {
-      this.$http.get(`${BASE_URL}/seller`).then(res => {
+      this.$http.get(`${BASE_URL}/sell`).then(res => {
         console.log(res);
-        this.seller=res.body;
+        this.seller=res.body.seller;
       }, response => {
         // error callback
       });

@@ -3,9 +3,9 @@
 > A Vue.js project
 
 ## 接口
-` https://easy-mock.com/mock/5bf6a26492b5d9334494e891/example`
+` http://129.204.7.125:8001/sell`
 
-`/evaluation	`
+`ratings`
 
 评论	
  	
