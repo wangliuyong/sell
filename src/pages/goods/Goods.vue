@@ -1,5 +1,8 @@
 <template>
-  <div>{{message}}</div>
+  <div class="goods-wrap">
+    <div class="menue-wrap"></div>
+    <div class="food-wrap"></div>
+  </div>
 </template>
 
 <script>
@@ -16,6 +19,20 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+.goods-wrap{
+  display:flex;
+  position: absolute;
+  top: 178px;
+  bottom: 50px;
+  width: 100%;
+  border: 1px solid red;
+  .menue-wrap{
+    flex: 0 0 80px;
+  }
 
+  .food-wrap{
+    flex: 1;
+  }
+}
 </style>
