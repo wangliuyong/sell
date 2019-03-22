@@ -47,6 +47,9 @@
             </li>
           </ul>
           <titleLine title="商家公告"></titleLine>
+          <div class="bulletin-detail">
+            {{seller.bulletin}}
+          </div>
         </div>
         <div class="detail-close" @click="closeDetail">
           <svg class="icon" aria-hidden="true">
