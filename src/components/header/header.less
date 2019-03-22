@@ -1,11 +1,8 @@
 @import "../../common/icon/icon.css";
-
 .header {
   position: relative;
   color: #fff;
   overflow: hidden;
-
-
   .contentWrap {
     position: relative;
     padding: 24px 12px 18px 24px;
@@ -99,7 +96,6 @@
       }
     }
   }
-
   .noticeWrap {
     display: flex;
     height: 28px;
@@ -141,7 +137,6 @@
 
 
   }
-
   .background{
     position: absolute;
     left: 0;
@@ -151,7 +146,6 @@
     width: 100%;
     filter:blur(10px);
   }
-
   .detail{
     position:fixed;
     top: 0;
@@ -161,23 +155,27 @@
     width: 100%;
     background: rgba(7,17,27,0.8);
     .detail-wrap{
-      min-height: 100%;
-      border: 1px solid red;
+      display: flex;
+      flex-flow: column;
+      min-height: 100vh;
       .detail-main{
+        flex: 1;
         margin-top: 64px;
         padding-bottom: 64px;
-        border: 1px solid green;
+        .name{
+          font-size: 16px;
+          line-height: 16px;
+          font-weight: 700;
+          text-align: center;
+        }
       }
-    }
-    .detail-close{
-      position: relative;
-      width: 32px;
-      height: 32px;
-      margin: -64px auto 0 auto;
-      .icon{
-        font-size: 32px;
+      .detail-close{
+        flex: 0;
+        margin: 64px auto;
+        .icon{
+          font-size: 32px;
+        }
       }
     }
   }
-
 }

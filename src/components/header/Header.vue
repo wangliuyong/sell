@@ -35,23 +35,26 @@
       </svg>
     </div>
     <div class="detail" v-show="detailShow">
-      <div class="detail-wrap clearfix">
-        <div class="detail-main"></div>
+      <div class="detail-wrap">
+        <div class="detail-main">
+          <h1 class="name">{{seller.name}}</h1>
+          <Star :score="seller.score"></Star>
+        </div>
+        <div class="detail-close" @click="closeDetail">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#iconclose"></use>
+          </svg>
+        </div>
       </div>
-
-      <div class="detail-close">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#iconclose"></use>
-        </svg>
-      </div>
-
     </div>
   </div>
 </template>
 
 <script>
+  import Star from '../star/star'
 
   export default {
+    components:{Star},
     props: {
       seller: {
         type: Object
@@ -65,6 +68,9 @@
     methods:{
       showDetail(){
         this.detailShow=true;
+      },
+      closeDetail(){
+        this.detailShow=false;
       }
     }
   }
