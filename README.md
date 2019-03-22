@@ -1,7 +1,8 @@
-/seller	`
-商家# sell
+
   
   > A Vue.js project
+  ## 技术栈
+  `vue vue-router vue-resource`
   
   ## 接口
   ` http://129.204.7.125:8001/sell`

@@ -33,7 +33,7 @@
         while(arr.length<LENGTH){
           arr.push(CLS_OFF)
         }
-        console.log(arr)
+        //console.log(arr)
         return arr
       }
     }

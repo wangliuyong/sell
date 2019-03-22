@@ -34,8 +34,13 @@
     },
     created() {
       this.$http.get(`${BASE_URL}/sell`).then(res => {
-        console.log(res);
+        // console.log(res);
         this.seller=res.body.seller;
+        // this.goods=res.body.goods;
+        //this.ratings=res.body.ratings;
+
+        //console.log(this._data)
+
       }, response => {
         // error callback
       });
