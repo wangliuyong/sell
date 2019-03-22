@@ -67,7 +67,7 @@
         }
 
         .text {
-          //--F:\code\study\sell\resource\img\decrease_1@2x.png
+          //--F:\code\study\sell\resource\img\decrease.png
         }
       }
 
@@ -160,13 +160,61 @@
       min-height: 100vh;
       .detail-main{
         flex: 1;
-        margin-top: 64px;
+        margin: 64px 36px 0 36px;
+
         padding-bottom: 64px;
         .name{
           font-size: 16px;
           line-height: 16px;
           font-weight: 700;
           text-align: center;
+        }
+
+        .message-list{
+          padding: 0 12px 28px 12px;
+          font-size: 0;
+
+          .list-item{
+            display: flex;
+            align-items: center;
+            .icon{
+              display: inline-block;
+              width: 16px;
+              height: 16px;
+              margin-right: 6px;
+              padding: 0 0 12px 0;
+              vertical-align: middle;
+
+              &.decrease{
+                background:url("./decrease.png") no-repeat center center;
+                background-size:16px 16px;
+              }
+              &.discount{
+                background:url("./discount.png") no-repeat center center;
+                background-size:16px 16px;
+              }
+              &.guarantee{
+                background:url("./guarantee.png") no-repeat center center;
+                background-size:16px 16px;
+              }
+              &.invoice{
+                background:url("./invoice.png") no-repeat center center;
+                background-size:16px 16px;
+              }
+              &.special{
+                background:url("./special.png") no-repeat center center;
+                background-size:16px 16px;
+              }
+
+            }
+            .text{
+              font-size: 12px;
+              line-height: 12px;
+              font-weight: 200;
+
+            }
+          }
+
         }
       }
       .detail-close{

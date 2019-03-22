@@ -39,6 +39,14 @@
         <div class="detail-main">
           <h1 class="name">{{seller.name}}</h1>
           <Star :score="seller.score"></Star>
+          <titleLine title="优惠信息"></titleLine>
+          <ul class="message-list">
+            <li v-for="item in seller.supports" :key="this" class="list-item">
+              <span class="icon" :class="iconList[item.type]"></span>
+              <span class="text">{{item.description}}</span>
+            </li>
+          </ul>
+          <titleLine title="商家公告"></titleLine>
         </div>
         <div class="detail-close" @click="closeDetail">
           <svg class="icon" aria-hidden="true">
@@ -52,9 +60,10 @@
 
 <script>
   import Star from '../star/star'
+  import titleLine from '../titleLine/titleLine'
 
   export default {
-    components:{Star},
+    components:{Star,titleLine},
     props: {
       seller: {
         type: Object
@@ -62,7 +71,8 @@
     },
     data(){
       return {
-        detailShow:false
+        detailShow:false,
+        iconList:['decrease','discount','guarantee','invoice','special']
       }
     },
     methods:{
