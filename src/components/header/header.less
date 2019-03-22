@@ -1,22 +1,25 @@
 @import "../../common/icon/icon.css";
 
 .header {
+  position: relative;
   color: #fff;
-  background: #cccccc;
+  overflow: hidden;
+
 
   .contentWrap {
     position: relative;
     padding: 24px 12px 18px 24px;
     font-size: 0;
+    background: rgba(7, 17, 27, 0.5);
+
     .avatar {
       display: inline-block;
+
       img {
         width: 68px;
         border-radius: 2px;
       }
     }
-
-
 
     .content {
 
@@ -26,15 +29,15 @@
       margin-left: 16px;
 
 
-      .supports-account{
+      .supports-account {
         position: absolute;
         right: 12px;
         bottom: 14px;
         padding: 7px 8px;
-        border-radius:8px;
-        background-color: rgba(0,0,0,0.2);
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.2);
 
-        .text{
+        .text {
           color: #fff;
           font-size: 10px;
           line-height: 12px;
@@ -42,11 +45,11 @@
           margin-right: 2px;
           vertical-align: middle;
         }
-        .icon{
+
+        .icon {
           vertical-align: middle;
         }
       }
-
 
 
       .title {
@@ -96,4 +99,85 @@
       }
     }
   }
+
+  .noticeWrap {
+    display: flex;
+    height: 28px;
+    line-height: 28px;
+    overflow: hidden;
+    background: rgba(7, 17, 27, 0.2);
+    padding: 0 12px 0 12px;
+    justify-content: center;
+    align-items: center;
+
+    .icon-gonggao {
+      width: 24px;
+      height: 16px;
+      line-height: 17px;
+      flex-basis: 24px;
+      font-size: 10px;
+      background: #ffffff;
+      color: #ccc;
+      font-weight: bold;
+      margin-right: 4px;
+      padding: 1px;
+      border-radius:2px;
+    }
+
+    .icon{
+      flex-basis: 24px;
+    }
+
+    .text{
+      flex-basis: 80%;
+      font-size: 10px;
+      font-weight: 200;
+      line-height: 28px;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+      overflow:hidden;
+      flex-grow:1;
+    }
+
+
+  }
+
+  .background{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -2;
+    height: 100%;
+    width: 100%;
+    filter:blur(10px);
+  }
+
+  .detail{
+    position:fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    background: rgba(7,17,27,0.8);
+    .detail-wrap{
+      min-height: 100%;
+      border: 1px solid red;
+      .detail-main{
+        margin-top: 64px;
+        padding-bottom: 64px;
+        border: 1px solid green;
+      }
+    }
+    .detail-close{
+      position: relative;
+      width: 32px;
+      height: 32px;
+      margin: -64px auto 0 auto;
+      .icon{
+        font-size: 32px;
+      }
+    }
+  }
+
 }

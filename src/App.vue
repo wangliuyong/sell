@@ -45,7 +45,7 @@
 
 <style lang="less">
   @import '../src/common/style/base.less';
-  @import '../src/common/style/common';
+  @import '../src/common/style/common.less';
 
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
