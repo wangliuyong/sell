@@ -33,6 +33,7 @@
       Header
     },
     created() {
+      this.$router.push('/goods')
       this.$http.get(`${BASE_URL}/sell`).then(res => {
         // console.log(res);
         this.seller=res.body.seller;

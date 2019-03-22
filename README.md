@@ -63,3 +63,23 @@ resolve: {
 `
 
 
+`<div class="box" ref="box1"></div>`
+
+
+this.$refs.box1去取得我们的DOM元素
+
+vue 更新dom时异步的，this.$nextTick(()=>{})更新后回调
+
+
+* better-scroll
+
+import BScroll from 'better-scroll'
+let wrapper = document.querySelector('.wrapper')
+let scroll = new BScroll(wrapper)
+
+https://github.com/ustbhuangyi/better-scroll/blob/master/README_zh-CN.md
+
+-- 注意父元素要有高度，他会计算子元素高度，当子元素高度大于父元素高度时产生滚动
+
+
+
