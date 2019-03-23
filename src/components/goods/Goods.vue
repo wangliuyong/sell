@@ -35,7 +35,7 @@
         </li>
       </ul>
     </div>
-    <ShopCar :price="200" :deliveryPrice="300"></ShopCar>
+    <ShopCar :price="200" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></ShopCar>
   </div>
 </template>
 
@@ -51,6 +51,7 @@
       return {
         message:'商品',
         goods:[],
+        seller:{},
         iconList:['decrease','discount','guarantee','invoice','special'],
         foodList:{},
         listHeight:[],
@@ -60,6 +61,7 @@
     created() {
       this.$http.get(`${BASE_URL}/sell`).then(res => {
         this.goods=res.body.goods;
+        this.seller=res.body.seller;
         this.foodList=res.body.goods[0];
         //异步渲染的数据，数据dom渲染完成后执行回调
         this.$nextTick(()=>{
@@ -87,7 +89,7 @@
     },
     methods:{
       selectMenue(event,index){
-        console.log(event,index);
+        // console.log(event,index);
         let foodList=this.$refs.food_scroll.getElementsByClassName('food-list-hook');
         let currentFood=foodList[index];
         this.foodScroll.scrollToElement(currentFood,300)

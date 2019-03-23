@@ -33,9 +33,9 @@
       Header
     },
     created() {
-      this.$router.push('/goods')
+      this.$router.push('/goods');
       this.$http.get(`${BASE_URL}/sell`).then(res => {
-        // console.log(res);
+        console.log(res.body);
         this.seller=res.body.seller;
         // this.goods=res.body.goods;
         //this.ratings=res.body.ratings;

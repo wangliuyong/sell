@@ -3,26 +3,70 @@
 
     <div class="car-message">
       <div class="car-logo">
-        <div class="logo">
-          <svg class="icon" aria-hidden="true">
+        <div class="logo" >
+          <svg class="icon" aria-hidden="true" :class="{add_food:sumAccount>0}">
             <use xlink:href="#iconshopping_cart"></use>
           </svg>
+          <span class="num" v-show="sumAccount>0">{{sumAccount}}</span>
         </div>
       </div>
 
-      <span class="price">￥{{price}}</span>
+      <span class="price" :class="{havefood:sumPrice>0}">￥{{sumPrice}}</span>
       <span class="line"></span>
       <span class="delivery">另需配送费{{deliveryPrice}}元</span>
     </div>
 
-    <div class="car-sumPrice">￥20起送</div>
+    <div class="car-sumPrice" :class="{pay:lack===0}">
+      <span v-show="sumPrice===0">￥{{minPrice}}起送</span>
+      <span v-if="lack>0">还差￥{{lack}}起送</span>
+      <span v-else class="toPay">去支付</span>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
     name: "shopcar",
-    props:['price','deliveryPrice']
+    props: {
+      selectGood: {
+        type: Array,
+        default: () => {
+          return [{
+            price: 2,
+            account: 10
+          }]
+        }
+      },
+      price: {
+        type: Number
+      },
+      deliveryPrice: {
+        type: Number
+      },
+      minPrice:{
+        type:Number
+      }
+    },
+    computed: {
+      sumPrice(){
+        let tatal=0;
+        this.selectGood.forEach((item)=>{
+          tatal+=item.price*item.account;
+        });
+        return tatal;
+      },
+      sumAccount() {
+        let sumAccount = 0;
+        this.selectGood.forEach((item) => {
+          sumAccount += item.account;
+        });
+        return sumAccount;
+      },
+      lack(){
+        return this.minPrice-this.sumPrice
+      }
+    }
+
   }
 </script>
 
@@ -35,66 +79,102 @@
     height: 50px;
     width: 100%;
     display: flex;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255, 255, 255, 0.4);
     background: #141d27;
-    .car-message{
+
+    .car-message {
       flex: 1;
       display: flex;
-      span{
+
+      span {
         display: flex;
         align-items: center;
       }
-      .price{
+
+      .price {
         font-size: 16px;
         font-weight: 700;
         margin-left: 16px;
+        &.havefood{
+          color: #ffffff;
+          font-size: 18px;
+        }
       }
-      .line{
+
+      .line {
         margin: 10px 12px;
-        min-height:20px;
+        min-height: 20px;
         width: 1px;
-        background: rgba(255,255,255,0.2);
+        background: rgba(255, 255, 255, 0.2);
       }
-      .delivery{
+
+      .delivery {
         font-weight: 200;
       }
-      .car-logo{
+
+      .car-logo {
         margin-top: -8px;
         margin-left: 18px;
         width: 50px;
         height: 50px;
-        border-radius:50%;
+        border-radius: 50%;
         background: #141d27;
         border: 1px solid #141d27;
         display: flex;
         justify-content: center;
         align-items: center;
-        .logo{
+        .logo {
+          position: relative;
           width: 44px;
           height: 44px;
-          border-radius:50%;
-          background: rgba(0,0,0,0.2);
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.2);
           display: flex;
           justify-content: center;
           align-items: center;
-          .icon{
+          .num{
+            position: absolute;
+            top: -4px;
+            right: -12px;
+            width: 24px;
+            font-size: 9px ;
+            line-height: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            background: rgba(240,20,20);
+            border-radius:6px 6px 6px 6px;
+            display: flex;
+            justify-content: center;
+          }
+
+          .icon {
             width: 24px;
             height: 24px;
-            fill: rgba(255,255,255,0.4);
+            fill: rgba(255, 255, 255, 0.4);
+            &.add_food{
+              fill: #2790FF;
+            }
           }
         }
       }
     }
-    .car-sumPrice{
+
+    .car-sumPrice {
       flex-basis: 105px;
       width: 105px;
       font-size: 12px;
       font-weight: 700;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255, 255, 255, 0.4);
       display: flex;
       justify-content: center;
       align-items: center;
-      background: rgba(0,0,0,0.2);
+      background: rgba(0, 0, 0, 0.2);
+      &.pay{
+        background:#2790FF;
+      }
+      .toPay{
+
+      }
     }
   }
 </style>
