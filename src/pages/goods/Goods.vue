@@ -3,7 +3,7 @@
 
     <div class="menue-wrap" ref="menue_scroll">
       <ul class="menue-list">
-        <li v-for="item in goods" class="item-list" @click="()=>{selectFood(item.name)}">
+        <li v-for="(item,index) in goods" :class="{'currentClass':currentIndex===index}" class="item-list menue-list-hook" @click="()=>{selectFood(item.name)}">
           <span class="icon" v-show="item.type>0" :class="iconList[item.type]"></span>
           <span class="text">{{item.name}}</span>
         </li>
@@ -12,7 +12,7 @@
 
     <div class="food-wrap" ref="food_scroll">
       <ul class="food-scroll" >
-        <li v-for="item in goods">
+        <li v-for="item in goods" class="food-list-hook">
           <h1 class="name">{{item.name}}</h1>
           <ul class="food-list">
             <li v-for="foodItem in item.foods" class="item-list">
@@ -30,9 +30,7 @@
                   <span class="oldP" v-show="foodItem.oldPrice">￥{{foodItem.oldPrice}}</span>
                 </p>
               </div>
-
               <div class="buy-account"></div>
-
             </li>
           </ul>
         </li>
@@ -51,21 +49,37 @@
         message:'商品',
         goods:[],
         iconList:['decrease','discount','guarantee','invoice','special'],
-        foodList:{}
+        foodList:{},
+        listHeight:[],
+        scrollY:0
       }
     },
     created() {
       this.$http.get(`${BASE_URL}/sell`).then(res => {
         this.goods=res.body.goods;
         this.foodList=res.body.goods[0];
+        //异步渲染的数据，数据dom渲染完成后执行回调
         this.$nextTick(()=>{
           this._initScroll();
-          console.log(this.$refs);
+          this._calculateHeight();
+          //console.log(this.$refs);
         })
 
       }, response => {
         // error callback
       });
+    },
+    computed:{
+      currentIndex(){
+        let listHeight=this.listHeight;
+        for (let i = 0; i <listHeight.length ; i++) {
+          let currentHeight=listHeight[i];
+          let nextHeight=listHeight[i+1];
+          if(!nextHeight||(this.scrollY>=currentHeight&&this.scrollY<nextHeight)){
+            return i;
+          }
+        }
+      }
     },
     methods:{
       selectFood(name){
@@ -75,9 +89,30 @@
         })[0];
         console.log(this.foodList)
       },
+      //初始化scroll
       _initScroll(){
         this.menueScroll=new BScroll(this.$refs.menue_scroll,{});
-        this.foodScroll=new BScroll(this.$refs.food_scroll,{})
+        this.foodScroll=new BScroll(this.$refs.food_scroll,{
+          probeType:3
+        });
+        //监听滚动距离
+        this.foodScroll.on('scroll',(e)=>{
+          this.scrollY=Math.abs(Math.round(e.y))
+          //console.log( this.scrollY)
+        })
+      },
+      _calculateHeight(){
+        // let height=this.$refs.menue_scroll.getElementsByClassName('menue-list-hook');
+        // console.log(height)
+        let foodList=this.$refs.food_scroll.getElementsByClassName('food-list-hook');
+        let height=0;
+        this.listHeight.push(height);
+        for (let i = 0; i <foodList.length ; i++) {
+          height+=foodList[i].clientHeight;
+          this.listHeight.push(height)
+        }
+
+        console.log(this.listHeight)
       }
     }
   }
@@ -97,7 +132,6 @@
     .menue-list{
       display: flex;
       flex-direction: column;
-
       .item-list{
         display:flex;
         justify-content: center;
@@ -107,6 +141,11 @@
         width: 80px;
         background: #f3f5f7;
         border-bottom: 1px solid rgba(7,17,27,0.1);
+        &.currentClass{
+          position: relative;
+          z-index: 1;
+          background: #ffffff;
+        }
         &:hover{
           background: #ffffff;
         }
