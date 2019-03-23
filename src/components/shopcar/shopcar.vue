@@ -18,8 +18,7 @@
 
     <div class="car-sumPrice" :class="{pay:lack===0}">
       <span v-show="sumPrice===0">￥{{minPrice}}起送</span>
-      <span v-if="lack>0">还差￥{{lack}}起送</span>
-      <span v-else class="toPay">去支付</span>
+      <span v-show="sumPrice>0">{{lack}}</span>
     </div>
   </div>
 </template>
@@ -33,7 +32,7 @@
         default: () => {
           return [{
             price: 2,
-            account: 10
+            account: 1
           }]
         }
       },
@@ -63,7 +62,12 @@
         return sumAccount;
       },
       lack(){
-        return this.minPrice-this.sumPrice
+        let diff= this.sumPrice-this.minPrice;
+        if(diff<0){
+          return `￥还差${-diff}元`
+        }else{
+          return `去支付`
+        }
       }
     }
 
@@ -173,7 +177,9 @@
         background:#2790FF;
       }
       .toPay{
-
+        font-size: 12px;
+        font-weight: 700;
+        color: white;
       }
     }
   }
