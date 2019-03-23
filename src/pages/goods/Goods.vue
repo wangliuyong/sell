@@ -3,7 +3,8 @@
 
     <div class="menue-wrap" ref="menue_scroll">
       <ul class="menue-list">
-        <li v-for="(item,index) in goods" :class="{'currentClass':currentIndex===index}" class="item-list menue-list-hook" @click="()=>{selectFood(item.name)}">
+        <li v-for="(item,index) in goods" :class="{'currentClass':currentIndex===index}" class="item-list menue-list-hook"
+            @click="selectMenue($event,index)">
           <span class="icon" v-show="item.type>0" :class="iconList[item.type]"></span>
           <span class="text">{{item.name}}</span>
         </li>
@@ -70,6 +71,7 @@
       });
     },
     computed:{
+      //计算滚动的区间的index
       currentIndex(){
         let listHeight=this.listHeight;
         for (let i = 0; i <listHeight.length ; i++) {
@@ -82,16 +84,17 @@
       }
     },
     methods:{
-      selectFood(name){
-        console.log(name);
-        this.foodList=this.goods.filter((item)=>{
-          return item.name===name;
-        })[0];
-        console.log(this.foodList)
+      selectMenue(event,index){
+        console.log(event,index);
+        let foodList=this.$refs.food_scroll.getElementsByClassName('food-list-hook');
+        let currentFood=foodList[index];
+        this.foodScroll.scrollToElement(currentFood,300)
       },
       //初始化scroll
       _initScroll(){
-        this.menueScroll=new BScroll(this.$refs.menue_scroll,{});
+        this.menueScroll=new BScroll(this.$refs.menue_scroll,{
+          click:true
+        });
         this.foodScroll=new BScroll(this.$refs.food_scroll,{
           probeType:3
         });
@@ -144,7 +147,13 @@
         &.currentClass{
           position: relative;
           z-index: 1;
+          margin-top: -1px;
           background: #ffffff;
+          .text{
+            font-size: 12px;
+            line-height: 14px;
+            font-weight: 800;
+          }
         }
         &:hover{
           background: #ffffff;
@@ -217,6 +226,14 @@
           font-size: 10px;
           line-height: 10px;
           color: rgba(147,153,159);
+
+          .describle{
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+            width: 200px;
+          }
+
           .sellCount{
             margin-right: 12px;
           }

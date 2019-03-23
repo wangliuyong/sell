@@ -2,7 +2,7 @@
   
   > A Vue.js project
   ## 技术栈
-  `vue vue-router vue-resource`
+  `vue vue-router vue-resource better-scroll`
   
   ## 接口
   ` http://129.204.7.125:8001/sell`
