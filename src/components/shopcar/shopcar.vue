@@ -3,7 +3,7 @@
 
     <div class="car-message">
       <div class="car-logo">
-        <div class="logo" >
+        <div class="logo">
           <svg class="icon" aria-hidden="true" :class="{add_food:sumAccount>0}">
             <use xlink:href="#iconshopping_cart"></use>
           </svg>
@@ -16,7 +16,7 @@
       <span class="delivery">另需配送费{{deliveryPrice}}元</span>
     </div>
 
-    <div class="car-sumPrice" :class="{pay:lack===0}">
+    <div class="car-sumPrice" :class="{pay:sumPrice-minPrice>=0}" @click="toPay">
       <span v-show="sumPrice===0">￥{{minPrice}}起送</span>
       <span v-show="sumPrice>0">{{lack}}</span>
     </div>
@@ -31,8 +31,8 @@
         type: Array,
         default: () => {
           return [{
-            price: 2,
-            account: 1
+            price: 1,
+            account: 200
           }]
         }
       },
@@ -42,15 +42,15 @@
       deliveryPrice: {
         type: Number
       },
-      minPrice:{
-        type:Number
+      minPrice: {
+        type: Number
       }
     },
     computed: {
-      sumPrice(){
-        let tatal=0;
-        this.selectGood.forEach((item)=>{
-          tatal+=item.price*item.account;
+      sumPrice() {
+        let tatal = 0;
+        this.selectGood.forEach((item) => {
+          tatal += item.price * item.account;
         });
         return tatal;
       },
@@ -61,12 +61,21 @@
         });
         return sumAccount;
       },
-      lack(){
-        let diff= this.sumPrice-this.minPrice;
-        if(diff<0){
-          return `￥还差${-diff}元`
-        }else{
-          return `去支付`
+      lack() {
+        let diff = this.sumPrice - this.minPrice;
+        if (diff < 0) {
+          return `￥还差${-diff}元`;
+        } else {
+          return `去支付`;
+        }
+      }
+    },
+    methods:{
+      toPay(){
+
+        console.log(this.sumPrice - this.minPrice);
+        if(this.sumAccount-this.minPrice>0){
+          this.$router.push('/pay')
         }
       }
     }
@@ -99,7 +108,8 @@
         font-size: 16px;
         font-weight: 700;
         margin-left: 16px;
-        &.havefood{
+
+        &.havefood {
           color: #ffffff;
           font-size: 18px;
         }
@@ -127,6 +137,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
         .logo {
           position: relative;
           width: 44px;
@@ -136,17 +147,18 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          .num{
+
+          .num {
             position: absolute;
             top: -4px;
             right: -12px;
             width: 24px;
-            font-size: 9px ;
+            font-size: 9px;
             line-height: 16px;
             font-weight: 700;
             color: #ffffff;
-            background: rgba(240,20,20);
-            border-radius:6px 6px 6px 6px;
+            background: rgba(240, 20, 20);
+            border-radius: 6px 6px 6px 6px;
             display: flex;
             justify-content: center;
           }
@@ -155,7 +167,8 @@
             width: 24px;
             height: 24px;
             fill: rgba(255, 255, 255, 0.4);
-            &.add_food{
+
+            &.add_food {
               fill: #2790FF;
             }
           }
@@ -173,10 +186,12 @@
       justify-content: center;
       align-items: center;
       background: rgba(0, 0, 0, 0.2);
-      &.pay{
-        background:#2790FF;
+
+      &.pay {
+        background: #2790FF;
       }
-      .toPay{
+
+      .toPay {
         font-size: 12px;
         font-weight: 700;
         color: white;
