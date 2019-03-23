@@ -1,6 +1,5 @@
 <template>
   <div class="goods-wrap">
-
     <div class="menue-wrap" ref="menue_scroll">
       <ul class="menue-list">
         <li v-for="(item,index) in goods" :class="{'currentClass':currentIndex===index}" class="item-list menue-list-hook"
@@ -10,7 +9,6 @@
         </li>
       </ul>
     </div>
-
     <div class="food-wrap" ref="food_scroll">
       <ul class="food-scroll" >
         <li v-for="item in goods" class="food-list-hook">
@@ -37,14 +35,18 @@
         </li>
       </ul>
     </div>
+    <ShopCar :price="200" :deliveryPrice="300"></ShopCar>
   </div>
 </template>
 
 <script>
   import BScroll from 'better-scroll';
-  import {BASE_URL} from '../../common/js/config'
+  import ShopCar from '../shopcar/shopcar';
+  import {BASE_URL} from '../../common/js/config';
+
   export default {
     name: "Goods",
+    components:{ShopCar},
     data:()=>{
       return {
         message:'商品',
@@ -114,8 +116,7 @@
           height+=foodList[i].clientHeight;
           this.listHeight.push(height)
         }
-
-        console.log(this.listHeight)
+        // console.log(this.listHeight)
       }
     }
   }
@@ -166,23 +167,23 @@
           padding: 0 0 12px 0;
           vertical-align: middle;
           &.decrease{
-            background:url("./decrease.png") no-repeat center center;
+            background:url("decrease.png") no-repeat center center;
             background-size:16px 16px;
           }
           &.discount{
-            background:url("./discount.png") no-repeat center center;
+            background:url("discount.png") no-repeat center center;
             background-size:16px 16px;
           }
           &.guarantee{
-            background:url("./guarantee.png") no-repeat center center;
+            background:url("guarantee.png") no-repeat center center;
             background-size:16px 16px;
           }
           &.invoice{
-            background:url("./invoice.png") no-repeat center center;
+            background:url("invoice.png") no-repeat center center;
             background-size:16px 16px;
           }
           &.special{
-            background:url("./special.png") no-repeat center center;
+            background:url("special.png") no-repeat center center;
             background-size:16px 16px;
           }
         }
