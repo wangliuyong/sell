@@ -15,11 +15,10 @@
           <h1 class="name">{{item.name}}</h1>
           <ul class="food-list">
             <li v-for="foodItem in item.foods" class="item-list">
-
               <img :src="foodItem.image" alt="" width="60" height="60">
+
               <div class="content">
                 <h1 class="title">{{foodItem.name}}</h1>
-
                 <div class="dec">
                   <p v-show="foodItem.description" class="describle">{{foodItem.description}}</p>
                   <p class="message"><span class="sellCount">月售{{foodItem.sellCount}}份</span><span class="rating">好评率{{foodItem.rating}}%</span></p>
@@ -29,24 +28,25 @@
                   <span class="oldP" v-show="foodItem.oldPrice">￥{{foodItem.oldPrice}}</span>
                 </p>
               </div>
-              <div class="buy-account"></div>
+              <control class="control-wrap" :food="foodItem"></control>
             </li>
           </ul>
         </li>
       </ul>
     </div>
-    <ShopCar :price="200" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></ShopCar>
+    <ShopCar :price="200" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice" :selectFood="selectFood"></ShopCar>
   </div>
 </template>
 
 <script>
   import BScroll from 'better-scroll';
   import ShopCar from '../shopcar/shopcar';
+  import control from '../control/control';
   import {BASE_URL} from '../../common/js/config';
 
   export default {
     name: "Goods",
-    components:{ShopCar},
+    components:{ShopCar,control},
     data:()=>{
       return {
         message:'商品',
@@ -85,6 +85,20 @@
             return i;
           }
         }
+      },
+      //找到选择食物
+      selectFood(){
+        let food=[];
+        this.goods.forEach((item)=>{
+          item.foods.forEach((item)=>{
+            if(item.count>0){
+              food.push(item)
+            }
+          })
+        });
+
+        return food;
+
       }
     },
     methods:{
@@ -100,7 +114,8 @@
           click:true
         });
         this.foodScroll=new BScroll(this.$refs.food_scroll,{
-          probeType:3
+          probeType:3,
+          click:true
         });
         //监听滚动距离
         this.foodScroll.on('scroll',(e)=>{
@@ -147,6 +162,9 @@
         width: 80px;
         background: #f3f5f7;
         border-bottom: 1px solid rgba(7,17,27,0.1);
+
+
+
         &.currentClass{
           position: relative;
           z-index: 1;
@@ -204,6 +222,18 @@
     height: 50px;
     .food-scroll{
       /*height: 100%;*/
+      .food-list-hook{
+          .food-list{
+            .item-list{
+              position: relative;
+              .control-wrap{
+                position: absolute;
+                bottom: 18px;
+                right: 18px;
+              }
+            }
+          }
+      }
   }
     .name{
       height: 26px;
@@ -219,6 +249,9 @@
       padding: 18px;
       .content{
         padding-left: 10px;
+
+
+
         .title{
           font-size: 14px;
           line-height: 14px;

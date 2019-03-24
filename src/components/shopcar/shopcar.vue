@@ -27,14 +27,8 @@
   export default {
     name: "shopcar",
     props: {
-      selectGood: {
-        type: Array,
-        default: () => {
-          return [{
-            price: 1,
-            account: 200
-          }]
-        }
+      selectFood: {
+        type: Array
       },
       price: {
         type: Number
@@ -49,15 +43,15 @@
     computed: {
       sumPrice() {
         let tatal = 0;
-        this.selectGood.forEach((item) => {
-          tatal += item.price * item.account;
+        this.selectFood.forEach((item) => {
+          tatal += item.price * item.count;
         });
         return tatal;
       },
       sumAccount() {
         let sumAccount = 0;
-        this.selectGood.forEach((item) => {
-          sumAccount += item.account;
+        this.selectFood.forEach((item) => {
+          sumAccount += item.count;
         });
         return sumAccount;
       },
