@@ -60,9 +60,10 @@
 
   .control{
     font-size: 0;
+    vertical-align: middle;
+    line-height: 22px;
     .decrease,.add{
       .icon{
-
         width: 24px;
         height: 24px;
         fill: #00A0DC;

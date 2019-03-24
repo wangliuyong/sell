@@ -1,31 +1,55 @@
 <template>
-  <div class="shop-car">
 
-    <div class="car-message">
-      <div class="car-logo">
-        <div class="logo">
-          <svg class="icon" aria-hidden="true" :class="{add_food:sumAccount>0}">
-            <use xlink:href="#iconshopping_cart"></use>
-          </svg>
-          <span class="num" v-show="sumAccount>0">{{sumAccount}}</span>
+  <div class="shopcar-wrap">
+    <div class="mask" v-show="showDetail"></div>
+    <div class="shop-car-detail" v-show="showDetail">
+      <div class="title">
+        <h1 class="h1">购物车</h1>
+        <span class="zero" @click="empty">清空</span>
+      </div>
+      <ul class="carList">
+        <li v-for="item in selectFood" :key="item.id" class="list-item">
+          <span class="name">{{item.name}}</span>
+          <span class="control-wrap"><control :food="item"></control></span>
+        </li>
+      </ul>
+    </div>
+    <div class="shop-car">
+      <div class="car-message">
+        <div class="car-logo">
+          <div class="logo" @click="toggleDetailList">
+            <svg class="icon" aria-hidden="true" :class="{add_food:sumAccount>0}">
+              <use xlink:href="#iconshopping_cart"></use>
+            </svg>
+            <span class="num" v-show="sumAccount>0">{{sumAccount}}</span>
+          </div>
         </div>
+
+        <span class="price" :class="{havefood:sumPrice>0}">￥{{sumPrice}}</span>
+        <span class="line"></span>
+        <span class="delivery">另需配送费{{deliveryPrice}}元</span>
       </div>
 
-      <span class="price" :class="{havefood:sumPrice>0}">￥{{sumPrice}}</span>
-      <span class="line"></span>
-      <span class="delivery">另需配送费{{deliveryPrice}}元</span>
-    </div>
-
-    <div class="car-sumPrice" :class="{pay:sumPrice-minPrice>=0}" @click="toPay">
-      <span v-show="sumPrice===0">￥{{minPrice}}起送</span>
-      <span v-show="sumPrice>0">{{lack}}</span>
+      <div class="car-sumPrice" :class="{pay:sumPrice-minPrice>=0}" @click="toPay">
+        <span v-show="sumPrice===0">￥{{minPrice}}起送</span>
+        <span v-show="sumPrice>0">{{lack}}</span>
+      </div>
     </div>
   </div>
+
 </template>
 
 <script>
+
+  import control from '../control/control'
   export default {
     name: "shopcar",
+    components:{control},
+    data(){
+      return {
+        showDetail:false
+      }
+    },
     props: {
       selectFood: {
         type: Array
@@ -65,10 +89,17 @@
       }
     },
     methods:{
+      empty(){
+        this.selectFood.forEach((item)=>{
+          item.count=0;
+        })
+      },
+      toggleDetailList(){
+        this.showDetail=!this.showDetail;
+      },
       toPay(){
-
-        console.log(this.sumPrice - this.minPrice);
-        if(this.sumAccount-this.minPrice>0){
+        //console.log(this.sumPrice - this.sumPrice);
+        if(this.sumPrice-this.minPrice>0){
           this.$router.push('/pay')
         }
       }
@@ -78,13 +109,79 @@
 </script>
 
 <style scoped lang="less">
-  .shop-car {
+
+  .shopcar-wrap{
     position: fixed;
     bottom: 0;
     left: 0;
     z-index: 4;
-    height: 50px;
     width: 100%;
+    .mask{
+      position:fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      height: 100%;
+      width: 100%;
+      background: rgba(7,17,27,0.6);
+      filter:blur(10px);
+    }
+    .shop-car-detail{
+      background: #fff;
+      .title{
+        display: flex;
+        align-items: center;
+        height: 40px;
+        width: 100%;
+        background: #f3f5f7;
+        border-bottom: 2px solid rgba(7,17,27,0.1);
+        padding: 0 18px;
+
+        h1{
+          flex: 1;
+          padding-left:2px;
+          font-size: 14px;
+          color: rgba(7,17,27);
+          text-align: left;
+        }
+        .zero{
+          font-size: 12px;
+          color: rgba(0,160,220);
+          text-align: right;
+          flex: 1;
+        }
+      }
+
+      .carList{
+        max-height: 100px;
+        overflow: scroll;
+        padding: 10px 18px 10px 18px;
+      }
+
+      .list-item{
+        display: flex;
+        padding: 2px 0;
+        align-items: center;
+        border-bottom: 1px solid rgba(7,17,27,0.1);
+        .name{
+          flex: 1;
+          ont-size: 14px;
+          color: rgba(7,17,27);
+          font-weight: 400;
+        }
+        .control-wrap{
+          flex: 0 0 76px;
+          vertical-align: middle;
+          padding-bottom: 2px;
+          justify-self: right;
+
+        }
+     }
+    }
+  }
+  .shop-car {
+    width: 100%;
+    height: 50px;
     display: flex;
     color: rgba(255, 255, 255, 0.4);
     background: #141d27;

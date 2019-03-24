@@ -92,13 +92,12 @@
         this.goods.forEach((item)=>{
           item.foods.forEach((item)=>{
             if(item.count>0){
-              food.push(item)
+              food.push(item);
+              return 0;
             }
           })
         });
-
         return food;
-
       }
     },
     methods:{
