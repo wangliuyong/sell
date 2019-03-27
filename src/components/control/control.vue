@@ -30,7 +30,7 @@
     methods:{
       add(){
         if(!this.food.count){
-          this.$set(this.food,'count',1);
+          this.$set(this.food,'count',1);//父组件将food内存地址传了过来，修改就直接修改了父元素的food，vue中不能直接修改父元素传过来的prop
         }else{
           this.food.count++;
         }
