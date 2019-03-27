@@ -32,12 +32,12 @@
         if(!this.food.count){
           this.$set(this.food,'count',1);
         }else{
-          this.food.count++
+          this.food.count++;
         }
 
       },
       decrease(){
-        this.food.count--
+        this.food.count--;
       }
     }
   }

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
     <Header :seller="seller"/>
     <div class="nav border-1px">
       <div class="nav-item">

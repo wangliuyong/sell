@@ -14,20 +14,21 @@
         <li v-for="item in goods" class="food-list-hook">
           <h1 class="name">{{item.name}}</h1>
           <ul class="food-list">
-            <li v-for="foodItem in item.foods" class="item-list">
-              <img :src="foodItem.image" alt="" width="60" height="60">
-
-              <div class="content">
-                <h1 class="title">{{foodItem.name}}</h1>
-                <div class="dec">
-                  <p v-show="foodItem.description" class="describle">{{foodItem.description}}</p>
-                  <p class="message"><span class="sellCount">月售{{foodItem.sellCount}}份</span><span class="rating">好评率{{foodItem.rating}}%</span></p>
-                </div>
-                <p class="price">
-                  <span class="newP">￥{{foodItem.price}}</span>
-                  <span class="oldP" v-show="foodItem.oldPrice">￥{{foodItem.oldPrice}}</span>
-                </p>
-              </div>
+            <li v-for="foodItem in item.foods" class="item-list" >
+             <div class="click-wrap" @click="toSelectFood(foodItem,$event)">
+               <img :src="foodItem.image" alt="" width="60" height="60">
+               <div class="content">
+                 <h1 class="title">{{foodItem.name}}</h1>
+                 <div class="dec">
+                   <p v-show="foodItem.description" class="describle">{{foodItem.description}}</p>
+                   <p class="message"><span class="sellCount">月售{{foodItem.sellCount}}份</span><span class="rating">好评率{{foodItem.rating}}%</span></p>
+                 </div>
+                 <p class="price">
+                   <span class="newP">￥{{foodItem.price}}</span>
+                   <span class="oldP" v-show="foodItem.oldPrice">￥{{foodItem.oldPrice}}</span>
+                 </p>
+               </div>
+             </div>
               <control class="control-wrap" :food="foodItem"></control>
             </li>
           </ul>
@@ -35,6 +36,7 @@
       </ul>
     </div>
     <ShopCar :price="200" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice" :selectFood="selectFood"></ShopCar>
+    <food :selectedFood="selectedFood" ref="food_detail"></food>
   </div>
 </template>
 
@@ -42,11 +44,12 @@
   import BScroll from 'better-scroll';
   import ShopCar from '../shopcar/shopcar';
   import control from '../control/control';
+  import food from '../food/food';
   import {BASE_URL} from '../../common/js/config';
 
   export default {
     name: "Goods",
-    components:{ShopCar,control},
+    components:{ShopCar,control,food},
     data:()=>{
       return {
         message:'商品',
@@ -55,7 +58,8 @@
         iconList:['decrease','discount','guarantee','invoice','special'],
         foodList:{},
         listHeight:[],
-        scrollY:0
+        scrollY:0,
+        selectedFood:{}
       }
     },
     created() {
@@ -101,6 +105,10 @@
       }
     },
     methods:{
+      toSelectFood(food){
+        this.selectedFood=food;
+        this.$refs.food_detail.show();
+      },
       selectMenue(event,index){
         // console.log(event,index);
         let foodList=this.$refs.food_scroll.getElementsByClassName('food-list-hook');
@@ -152,6 +160,7 @@
     .menue-list{
       display: flex;
       flex-direction: column;
+
       .item-list{
         display:flex;
         justify-content: center;
@@ -227,8 +236,8 @@
               position: relative;
               .control-wrap{
                 position: absolute;
-                bottom: 18px;
-                right: 18px;
+                bottom: 15px;
+                right: 36px;
               }
             }
           }
@@ -243,7 +252,7 @@
       line-height: 26px;
       color: rgba(147,153,159);
     }
-    .item-list{
+    .click-wrap{
       display: flex;
       padding: 18px;
       .content{
