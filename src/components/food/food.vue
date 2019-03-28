@@ -1,5 +1,9 @@
 <template>
-  <div class="food-detail-wrap" v-show="showDetail"></div>
+  <transition name="fade">
+    <div class="foodDetail-wrap" v-show="showDetail">
+
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -20,17 +24,21 @@
         this.showDetail=true;
       }
     },
-    created() {
-      console.log(this.selectedFood)
-    },
-    updated() {
-      console.log(this.selectedFood)
+    mounted() {
+      //console.log(this.selectedFood)
     }
   }
 </script>
 
 <style scoped lang="less">
-  .food-detail-wrap{
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+  .foodDetail-wrap{
     position: fixed;
     top: 0;
     left: 0;
@@ -38,6 +46,8 @@
     bottom: 50px;
     z-index: 3;
     background: #ffffff;
+
+
   }
 
 </style>

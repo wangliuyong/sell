@@ -62,7 +62,7 @@
         selectedFood:{}
       }
     },
-    created() {
+    mounted() {
       this.$http.get(`${BASE_URL}/sell`).then(res => {
         this.goods=res.body.goods;
         this.seller=res.body.seller;
