@@ -35,7 +35,7 @@
         </li>
       </ul>
     </div>
-    <ShopCar :price="200" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice" :selectFood="selectFood"></ShopCar>
+    <ShopCar  :rice="200" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice" :selectFood="selectFood"></ShopCar>
     <transition name="fade">
       <Food :selectedFood="selectedFood" ref="food_detail"></Food>
     </transition>>

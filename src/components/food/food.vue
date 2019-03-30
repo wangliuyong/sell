@@ -16,8 +16,10 @@
             <p class="sellCount"><span>月售{{selectedFood.sellCount}}份</span><span>好评率{{selectedFood.rating}}%</span></p>
             <p class="price">
               <span class="newP">￥{{selectedFood.price}}</span><span v-show="selectedFood.oldPrice" class="oldP">￥{{selectedFood.oldPrice}}</span>
-              <button>加入购物车</button>
             </p>
+            <div class="control-wrap">
+              <control :food="selectedFood"></control>
+            </div>
           </div>
         </div>
         <div class="food-distruction">
@@ -33,8 +35,10 @@
 
 <script>
   import BScroll from 'better-scroll';
+  import control from '../control/control';
   export default {
     name: "food",
+    components:{control},
     props:{
       selectedFood:{
         type:Object
@@ -42,13 +46,17 @@
     },
     data(){
       return {
-        showDetail:false
+        showDetail:false,
+        count:0
       }
     },
     mounted(){
       this._initScroll();
     },
     methods:{
+      add(){
+        this.$set(this.selectedFood,'count',this.count++)
+      },
       show(){
         this.showDetail=true;
       },
@@ -78,8 +86,10 @@
     left: 0;
     right: 0;
     bottom: 50px;
-    z-index: 6;
     background: #f3f5f7;
+    >div{
+      background: #f3f5f7;
+    }
     h1{
       font-size: 14px;
       line-height: 14px;
@@ -89,6 +99,12 @@
     }
     .food-header{
       background: #ffffff;
+      position: relative;
+      .control-wrap{
+        position: absolute;
+        right: 18px;
+        bottom: 20px;
+      }
       .img-wrap{
         position: relative;
         z-index: 5;
@@ -174,7 +190,9 @@
       }
     }
     .food-comment{
-
+      margin-top: 18px;
+      padding: 18px;
+      background: #ffffff;
     }
 
   }
