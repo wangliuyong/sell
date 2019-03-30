@@ -29,27 +29,30 @@
                  </p>
                </div>
              </div>
-              <control class="control-wrap" :food="foodItem"></control>
+              <Control class="control-wrap" :food="foodItem"></Control>
             </li>
           </ul>
         </li>
       </ul>
     </div>
     <ShopCar :price="200" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice" :selectFood="selectFood"></ShopCar>
-    <food :selectedFood="selectedFood" ref="food_detail"></food>
+    <transition name="fade">
+      <Food :selectedFood="selectedFood" ref="food_detail"></Food>
+    </transition>>
+
   </div>
 </template>
 
 <script>
   import BScroll from 'better-scroll';
   import ShopCar from '../shopcar/shopcar';
-  import control from '../control/control';
-  import food from '../food/food';
+  import Control from '../control/control';
+  import Food from '../food/food';
   import {BASE_URL} from '../../common/js/config';
 
   export default {
     name: "Goods",
-    components:{ShopCar,control,food},
+    components:{ShopCar,Control,Food},
     data:()=>{
       return {
         message:'商品',
@@ -147,6 +150,10 @@
 </script>
 
 <style scoped lang="less">
+
+
+
+
 .goods-wrap{
   display:flex;
   position: absolute;
@@ -160,7 +167,6 @@
     .menue-list{
       display: flex;
       flex-direction: column;
-
       .item-list{
         display:flex;
         justify-content: center;
@@ -305,5 +311,13 @@
       }
     }
   }
+}
+
+//动画
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
