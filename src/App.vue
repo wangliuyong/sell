@@ -7,14 +7,18 @@
         <router-link to="/goods">商品</router-link>
       </div>
       <div class="nav-item">
-        <router-link to="/seller">商家</router-link>
+        <router-link to="/comment">评价</router-link>
       </div>
       <div class="nav-item">
-        <router-link to="/comment">评价</router-link>
+        <router-link to="/seller">商家</router-link>
       </div>
     </div>
     <div class="content">
-      <router-view/>
+      <transition name="slide">
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </transition>
     </div>
   </div>
 </template>

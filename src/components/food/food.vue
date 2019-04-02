@@ -22,11 +22,11 @@
             </div>
           </div>
         </div>
-        <div class="food-distruction">
+        <div v-show="selectedFood.info" class="food-distruction">
           <h1>商品介绍</h1>
           <p>{{selectedFood.info}}</p>
         </div>
-        <div class="food-comment">
+        <div class="food-comment" transition="fade">
           <h1>商品评价</h1>
         </div>
       </div>
@@ -80,6 +80,11 @@
 </script>
 
 <style scoped lang="less">
+  /*动画样式*/
+  .fade-transition{
+    opacity: 0.8;
+    transition: all 0.5s;
+  }
   .foodDetail-wrap{
     position: fixed;
     top: 0;
@@ -124,8 +129,8 @@
           height: 20px;
           font-size: 12px;
           .icon{
-            width: 20px;
-            height: 20px;
+            width: 31px;
+            height: 37px;
             fill:#fff;
           }
         }

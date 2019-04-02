@@ -11,16 +11,19 @@
   const CLS_HALF="half";
 
   export default {
-    name: "star",
+    name: "Star",
     props:{
       score:{
         type:Number
       }
     },
+    mounted(){
+      console.log(this.score)
+    },
     computed:{
       classList(){
         let arr=[];
-        let score = this.score
+        let score = this.score;
         let oneAccount=Math.floor(score);
         let halfAccount = score % 1 !== 0;
 
