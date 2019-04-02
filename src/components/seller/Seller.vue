@@ -1,13 +1,18 @@
 <template>
   <div class="seller" ref="seller_scroll">
-
     <div class="seller-content">
-
       <div class="seller-header">
         <div class="overview">
           <h1 class="title">{{seller.name}}</h1>
           <div class="des">
             <Star :score="seller.score"></Star><span class="text1">（{{seller.ratingCount}}）</span><span class="text2">月销售{{seller.sellCount}}份</span>
+          </div>
+          <div class="collect" >
+            <span @click.stop.prevent="troggleCollect">
+              <svg class="icon" :class="{'collect-active':collect}" aria-hidden="true">
+                <use xlink:href="#iconfavorite"></use>
+              </svg>
+            </span>
           </div>
         </div>
         <ul class="reference">
@@ -59,15 +64,14 @@
   import TitleLine from '../titleLine/titleLine'
   import {saveLocalStorage,getLocalStorage} from '../../common/js/localStorage'
 
-
-
-
   export default {
     name: "seller",
     components:{Star,TitleLine,Split},
     data(){
       return {
-
+        collect:(()=>{
+          return getLocalStorage(this.seller.id,'collect',false)
+        })()
       }
     },
     props:{
@@ -83,8 +87,13 @@
     mounted(){
       //this._initScroll();
       this._caculatePicsWidth();
+      //console.log('sellerId:',this.collect);
     },
     methods:{
+      troggleCollect(){
+        this.collect=!this.collect;
+        saveLocalStorage(this.seller.id,'collect',this.collect)
+      },
       _initScroll(){
         this.sellerScroll=new BScroll(this.$refs.seller_scroll,{
           probeType:3,
@@ -190,6 +199,20 @@
       .overview{
         position: relative;
         padding: 18px;
+
+        .collect{
+          position: absolute;
+          top: 18px;
+          right: 18px;
+
+          .collect-active{
+            fill:red;
+          }
+          .icon{
+            width: 24px;
+            height: 24px;
+          }
+        }
         h1{
           font-size: 14px;
           line-height: 14px;

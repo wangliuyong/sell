@@ -28,7 +28,7 @@
   import {BASE_URL} from './common/js/config'
 
   import {urlParse} from './common/js/url'
-  import {saveLocalStorage,getLocalStorage} from './common/js/localStorage'
+  // import {saveLocalStorage,getLocalStorage} from './common/js/localStorage'
 
   export default {
     name: 'App',

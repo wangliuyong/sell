@@ -21,12 +21,16 @@ export function getLocalStorage(id,key,def){
   if(!seller){
     return def;
   }else{
+    seller=JSON.parse(seller);
     if(!seller[id]){
+      console.log(1);
       return def;
     }else{
       if(!seller[id][key]){
+        console.log(2);
         return def;
       }else{
+        console.log(3);
         return seller[id][key];
       }
     }
