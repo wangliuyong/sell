@@ -85,5 +85,15 @@ https://github.com/ustbhuangyi/better-scroll/blob/master/README_zh-CN.md
 
 ** 注意父元素要有高度，他会计算子元素高度，当子元素高度大于父元素高度时产生滚动 **
 
+- kepp-alive  路由缓存，保持原来的状态
+
+  `
+    <transition name="slide">
+      <keep-alive>
+        <router-view :seller="seller"></router-view>
+      </keep-alive>
+    </transition>
+  `
+
 
 

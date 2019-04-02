@@ -12,11 +12,14 @@
       <div class="nav-item">
         <router-link to="/seller">商家</router-link>
       </div>
+
+
+
     </div>
     <div class="content">
       <transition name="slide">
         <keep-alive>
-          <router-view></router-view>
+          <router-view :seller="seller"></router-view>
         </keep-alive>
       </transition>
     </div>
@@ -60,6 +63,7 @@
 
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    overflow: hidden;
 
     .nav {
       width: 100%;

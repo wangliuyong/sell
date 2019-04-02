@@ -35,13 +35,11 @@
     components:{Star},
     data(){
       return {
-        rating:{},
-        seller:{}
+        rating:{}
       }
     },
     mounted(){
       this.$http.get(`${BASE_URL}/sell`).then(res => {
-        this.seller=res.body.seller;
         this.rating=res.body.ratings;
         //异步渲染的数据，数据dom渲染完成后执行回调
         this.$nextTick(()=>{
@@ -56,7 +54,7 @@
       });
     },
     props:{
-      seller1:{
+      seller:{
         type:Object
       }
     },

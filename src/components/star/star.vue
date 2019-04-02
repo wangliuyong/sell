@@ -45,14 +45,13 @@
 
 <style scoped lang="less">
 .star{
-  height: 24px;
+  height: 100%;
   text-align: center;
-  padding: 16px 0 28px 0;
   .star-item{
     display: inline-block;
     width: 20px;
     height: 20px;
-    margin-right: 20px;
+    margin-right: 10px;
     &.one{
       background: url("./one.png") no-repeat center center;
       background-size: cover;
