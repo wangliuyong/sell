@@ -28,6 +28,7 @@
   import {BASE_URL} from './common/js/config'
 
   import {urlParse} from './common/js/url'
+  import {saveLocalStorage,getLocalStorage} from './common/js/localStorage'
 
   export default {
     name: 'App',
@@ -37,6 +38,8 @@
           id:(()=>{
             let query=urlParse();
             // console.log('query:',query);
+            // saveLocalStorage(query.id,'collect',false)
+            // console.log(getLocalStorage(query.id, 'collect', true));
             return query.id;
           })()
         }

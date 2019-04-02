@@ -36,9 +36,7 @@
             <!--</li>-->
           <!--</ul>-->
       </div>
-
       <Split></Split>
-
       <div class="pics">
         <h1>商家实景</h1>
         <div class="pics-wrap" ref="pics_wrap">
@@ -59,6 +57,7 @@
   import Split from '../split/split'
   import BScroll from 'better-scroll';
   import TitleLine from '../titleLine/titleLine'
+  import {saveLocalStorage,getLocalStorage} from '../../common/js/localStorage'
 
 
 
@@ -189,16 +188,14 @@
         }
       }
       .overview{
+        position: relative;
         padding: 18px;
-
         h1{
           font-size: 14px;
           line-height: 14px;
           color: rgb(7,17,27);
           font-weight: 700;
         }
-
-
         .des{
           padding: 8px 0 18px 0;
           border-bottom: 1px solid rgba(7,17,27,0.1);
