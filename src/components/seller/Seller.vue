@@ -60,6 +60,9 @@
   import BScroll from 'better-scroll';
   import TitleLine from '../titleLine/titleLine'
 
+
+
+
   export default {
     name: "seller",
     components:{Star,TitleLine,Split},

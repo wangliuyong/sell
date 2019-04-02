@@ -94,6 +94,9 @@ https://github.com/ustbhuangyi/better-scroll/blob/master/README_zh-CN.md
       </keep-alive>
     </transition>
   `
+  
+  
+- Object.assign({},obj1,obj2)
 
 
 

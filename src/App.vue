@@ -10,11 +10,8 @@
         <router-link to="/comment">评价</router-link>
       </div>
       <div class="nav-item">
-        <router-link to="/seller">商家</router-link>
+        <router-link to="/seller?id=0000000">商家</router-link>
       </div>
-
-
-
     </div>
     <div class="content">
       <transition name="slide">
@@ -30,21 +27,30 @@
   import Header from './components/header/Header.vue'
   import {BASE_URL} from './common/js/config'
 
+  import {urlParse} from './common/js/url'
+
   export default {
     name: 'App',
     data(){
       return {
-        seller:{}
+        seller:{
+          id:(()=>{
+            let query=urlParse();
+            // console.log('query:',query);
+            return query.id;
+          })()
+        }
       }
     },
     components: {
       Header
     },
     created() {
-      this.$router.push('/goods');
-      this.$http.get(`${BASE_URL}/sell`).then(res => {
-        console.log(res.body);
-        this.seller=res.body.seller;
+      this.$router.push('/goods?id=45787');
+      this.$http.get(`${BASE_URL}/sell?id=`+this.seller.id).then(res => {
+
+        this.seller=Object.assign({},this.seller,res.body.seller);
+        // console.log(this.seller.id);
         // this.goods=res.body.goods;
         //this.ratings=res.body.ratings;
 
@@ -63,7 +69,6 @@
 
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    overflow: hidden;
 
     .nav {
       width: 100%;
